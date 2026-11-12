@@ -27,7 +27,7 @@ export const content: SiteContent = {
       id: 'parade',
       title: 'วงโยธวาทิต',
       description: 'บรรเลงในงานสวนสนาม ราชพิธี และรัฐพิธี ด้วยความสง่างามและพร้อมเพรียง',
-      image: '/media/parade.svg',
+      image: '/media/parade-photo.webp',
     },
     {
       id: 'bagpipe',
@@ -117,7 +117,7 @@ export const content: SiteContent = {
   photos: [
     { id: 'p1', src: '/media/concert.svg', alt: 'คอนเสิร์ตการกุศล', caption: 'คอนเสิร์ตการกุศล THONG LOR: SYMPHONY OF GIVING', category: 'concert' },
     { id: 'p2', src: '/media/orchestra.svg', alt: 'วง Pop Orchestra', caption: 'เบื้องหลังการซ้อมวง Pop Orchestra', category: 'concert' },
-    { id: 'p3', src: '/media/parade.svg', alt: 'วงโยธวาทิต', caption: 'วงโยธวาทิตในงานพิธีการ', category: 'ceremony' },
+    { id: 'p3', src: '/media/parade-photo.webp', alt: 'วงโยธวาทิตดุริยางค์ตำรวจในชุดปกติขาว', caption: 'วงโยธวาทิตในงานพิธีการ', category: 'ceremony' },
     { id: 'p4', src: '/media/bagpipe.svg', alt: 'วงปี่สก็อต', caption: 'วงปี่สก็อตบรรเลงในงานพิธี', category: 'ceremony' },
     { id: 'p5', src: '/media/festival.svg', alt: 'เทศกาลดนตรีตำรวจโลก', caption: 'ขบวนพาเหรดงานแสดงวงดนตรีตำรวจโลก ครั้งที่ 23', category: 'community' },
     { id: 'p6', src: '/media/thai.svg', alt: 'วงดนตรีไทย', caption: 'วงดนตรีไทยบรรเลงในงานประเพณี', category: 'ceremony' },
