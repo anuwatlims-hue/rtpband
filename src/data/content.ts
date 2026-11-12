@@ -57,7 +57,7 @@ export const content: SiteContent = {
       id: 'orchestra',
       title: 'Pop Orchestra',
       description: 'วงออร์เคสตราร่วมสมัย บรรเลงเพลงป็อปร่วมกับศิลปินรับเชิญในคอนเสิร์ตพิเศษ',
-      image: '/media/orchestra.svg',
+      image: '/media/orchestra-photo.webp',
     },
   ],
   activities: [
@@ -79,7 +79,7 @@ export const content: SiteContent = {
       category: 'concert',
       summary:
         'วง Pop Orchestra จากวงดุริยางค์ตำรวจ ร่วมกับศิลปินรับเชิญมากมาย ส่งต่อความสุขผ่านเสียงดนตรีในคอนเสิร์ตการกุศล',
-      image: '/media/concert.svg',
+      image: '/media/thonglor-photo.webp',
       sourceUrl: 'https://www.facebook.com/ThaiPoliceBand/',
     },
     {
@@ -90,8 +90,8 @@ export const content: SiteContent = {
       category: 'community',
       summary:
         'ขับร้องและบรรเลงโดยวงดุริยางค์ตำรวจ ร่วมกับนักร้องยอดนิยมร่วมสมัย เพื่อปลุกจิตสำนึกแห่งความเป็นผู้พิทักษ์สันติราษฎร์',
-      image: '/media/ceremony.svg',
-      sourceUrl: 'https://human.police.go.th/2023/10/',
+      image: '/media/ceremony-photo.webp',
+      videoUrl: 'https://www.youtube.com/playlist?list=PLwPRyd-rLvCC5QrWzQuuCt8RmOKB47Tvs',
     },
     {
       id: 'world-police-band-23',
@@ -101,8 +101,8 @@ export const content: SiteContent = {
       category: 'concert',
       summary:
         'ประเทศไทยเป็นเจ้าภาพครั้งแรก ร่วมกับตำรวจนครบาลโตเกียว เมียนมา และสิงคโปร์ พร้อมขบวนพาเหรดดนตรีระยะทางกว่า 0.5 กิโลเมตร',
-      image: '/media/festival.svg',
-      sourceUrl: 'https://travelintrend.com/entertainment/music-entertainment/inter-police-band-at-asiatique.html',
+      image: '/media/festival-photo.webp',
+      videoUrl: 'https://www.youtube.com/watch?v=pPkanvN5zAk&t=15s',
     },
     {
       id: 'music-school',
@@ -115,11 +115,12 @@ export const content: SiteContent = {
     },
   ],
   photos: [
-    { id: 'p1', src: '/media/concert.svg', alt: 'คอนเสิร์ตการกุศล', caption: 'คอนเสิร์ตการกุศล THONG LOR: SYMPHONY OF GIVING', category: 'concert' },
-    { id: 'p2', src: '/media/orchestra.svg', alt: 'วง Pop Orchestra', caption: 'เบื้องหลังการซ้อมวง Pop Orchestra', category: 'concert' },
+    { id: 'p1', src: '/media/thonglor-photo.webp', alt: 'ศิลปินและวงออร์เคสตราถ่ายภาพหมู่หน้าจอในงานคอนเสิร์ตการกุศล', caption: 'คอนเสิร์ตการกุศล THONG LOR: SYMPHONY OF GIVING', category: 'concert' },
+    { id: 'p2', src: '/media/orchestra-photo.webp', alt: 'วง Pop Orchestra ดุริยางค์ตำรวจบรรเลงบนเวที', caption: 'วง Pop Orchestra บรรเลงบนเวที', category: 'concert' },
     { id: 'p3', src: '/media/parade-photo.webp', alt: 'วงโยธวาทิตดุริยางค์ตำรวจในชุดปกติขาว', caption: 'วงโยธวาทิตในงานพิธีการ', category: 'ceremony' },
     { id: 'p4', src: '/media/bagpipe-photo.webp', alt: 'วงปี่สก็อตดุริยางค์ตำรวจเดินเข้าสู่เวทีในงานประชุม', caption: 'วงปี่สก็อตบรรเลงในงานพิธี', category: 'ceremony' },
-    { id: 'p5', src: '/media/festival.svg', alt: 'เทศกาลดนตรีตำรวจโลก', caption: 'ขบวนพาเหรดงานแสดงวงดนตรีตำรวจโลก ครั้งที่ 23', category: 'community' },
+    { id: 'p5', src: '/media/festival-photo.webp', alt: 'ขบวนพาเหรดวงดนตรีตำรวจไทยบนถนน', caption: 'ขบวนพาเหรดงานแสดงวงดนตรีตำรวจโลก ครั้งที่ 23', category: 'community' },
+    { id: 'p9', src: '/media/ceremony-photo.webp', alt: 'โปสเตอร์ แด่…ผู้พิทักษ์สันติราษฎร์ 13 บทเพลงตำรวจ', caption: 'แด่…ผู้พิทักษ์สันติราษฎร์ 13 บทเพลงตำรวจ', category: 'community' },
     { id: 'p6', src: '/media/thai-photo.webp', alt: 'วงดนตรีไทยดุริยางค์ตำรวจในพิธีถวายผ้าพระกฐิน', caption: 'วงดนตรีไทย พิธีถวายผ้าพระกฐินพระราชทาน วัดตรีทศเทพ', category: 'ceremony' },
     { id: 'p7', src: '/media/school-photo.webp', alt: 'ครูและนักเรียนโรงเรียนการดนตรี ดุริยางค์ตำรวจ', caption: 'ครูและนักเรียนโรงเรียนการดนตรี', category: 'education' },
     { id: 'p8', src: '/media/chamber.svg', alt: 'เชมเบอร์มิวสิค', caption: 'วงเชมเบอร์มิวสิคในงานเลี้ยงรับรอง', category: 'ceremony' },

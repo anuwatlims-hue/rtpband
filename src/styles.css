@@ -153,6 +153,10 @@ iframe.frame { border: 5px solid var(--gold-500); }
 .play { position: absolute; inset: 0; margin: auto; width: 74px; height: 74px; border-radius: 50%; background: var(--gold-grad); box-shadow: 0 0 0 4px rgb(58 7 16 / 0.6), 0 6px 24px rgb(0 0 0 / 0.45); transition: transform 0.2s; z-index: 1; }
 .play::after { content: ''; position: absolute; left: 29px; top: 22px; border-left: 22px solid var(--maroon-800); border-top: 15px solid transparent; border-bottom: 15px solid transparent; }
 .facade:hover .play { transform: scale(1.1); }
+.play.mini { inset: auto 14px 14px auto; margin: 0; width: 52px; height: 52px; }
+.play.mini::after { left: 20px; top: 14px; border-left: 16px solid var(--maroon-800); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
+.has-video { cursor: pointer; }
+.has-video:hover .play { transform: scale(1.1); }
 .empty { max-width: 640px; margin: 0 auto; text-align: center; padding: 2.5rem 1.5rem; background: var(--cream); color: var(--ink); }
 .empty::before { content: ''; position: absolute; inset: 5px; background: var(--cream); z-index: 0; }
 .empty > * { position: relative; z-index: 1; }
