@@ -33,7 +33,7 @@ export const content: SiteContent = {
       id: 'bagpipe',
       title: 'วงปี่สก็อต',
       description: 'เอกลักษณ์แห่งพิธีการ เสียงปี่และกลองที่สร้างความประทับใจในทุกงานสำคัญ',
-      image: '/media/bagpipe.svg',
+      image: '/media/bagpipe-photo.webp',
     },
     {
       id: 'jazz',
@@ -51,7 +51,7 @@ export const content: SiteContent = {
       id: 'thai',
       title: 'วงดนตรีไทย',
       description: 'สืบสานดนตรีไทย บรรเลงในงานประเพณีและพิธีการตามแบบแผน',
-      image: '/media/thai.svg',
+      image: '/media/thai-photo.webp',
     },
     {
       id: 'orchestra',
@@ -69,7 +69,7 @@ export const content: SiteContent = {
       category: 'ceremony',
       summary:
         'วงดนตรีไทย ปฏิบัติราชการบรรเลงดนตรีในพิธีถวายผ้าพระกฐินพระราชทานของสำนักงานตำรวจแห่งชาติ',
-      image: '/media/thai.svg',
+      image: '/media/thai-photo.webp',
     },
     {
       id: 'thonglor-symphony-2026',
@@ -111,17 +111,17 @@ export const content: SiteContent = {
       location: 'ปากเกร็ด นนทบุรี',
       category: 'education',
       summary: 'เปิดสอนดนตรีภาคทฤษฎีและปฏิบัติสำหรับผู้สนใจทุกวัย โดยบุคลากรของดุริยางค์ตำรวจ',
-      image: '/media/school.svg',
+      image: '/media/school-photo.webp',
     },
   ],
   photos: [
     { id: 'p1', src: '/media/concert.svg', alt: 'คอนเสิร์ตการกุศล', caption: 'คอนเสิร์ตการกุศล THONG LOR: SYMPHONY OF GIVING', category: 'concert' },
     { id: 'p2', src: '/media/orchestra.svg', alt: 'วง Pop Orchestra', caption: 'เบื้องหลังการซ้อมวง Pop Orchestra', category: 'concert' },
     { id: 'p3', src: '/media/parade-photo.webp', alt: 'วงโยธวาทิตดุริยางค์ตำรวจในชุดปกติขาว', caption: 'วงโยธวาทิตในงานพิธีการ', category: 'ceremony' },
-    { id: 'p4', src: '/media/bagpipe.svg', alt: 'วงปี่สก็อต', caption: 'วงปี่สก็อตบรรเลงในงานพิธี', category: 'ceremony' },
+    { id: 'p4', src: '/media/bagpipe-photo.webp', alt: 'วงปี่สก็อตดุริยางค์ตำรวจเดินเข้าสู่เวทีในงานประชุม', caption: 'วงปี่สก็อตบรรเลงในงานพิธี', category: 'ceremony' },
     { id: 'p5', src: '/media/festival.svg', alt: 'เทศกาลดนตรีตำรวจโลก', caption: 'ขบวนพาเหรดงานแสดงวงดนตรีตำรวจโลก ครั้งที่ 23', category: 'community' },
-    { id: 'p6', src: '/media/thai.svg', alt: 'วงดนตรีไทย', caption: 'วงดนตรีไทยบรรเลงในงานประเพณี', category: 'ceremony' },
-    { id: 'p7', src: '/media/school.svg', alt: 'โรงเรียนการดนตรี', caption: 'ชั้นเรียนโรงเรียนการดนตรี', category: 'education' },
+    { id: 'p6', src: '/media/thai-photo.webp', alt: 'วงดนตรีไทยดุริยางค์ตำรวจในพิธีถวายผ้าพระกฐิน', caption: 'วงดนตรีไทย พิธีถวายผ้าพระกฐินพระราชทาน วัดตรีทศเทพ', category: 'ceremony' },
+    { id: 'p7', src: '/media/school-photo.webp', alt: 'ครูและนักเรียนโรงเรียนการดนตรี ดุริยางค์ตำรวจ', caption: 'ครูและนักเรียนโรงเรียนการดนตรี', category: 'education' },
     { id: 'p8', src: '/media/chamber.svg', alt: 'เชมเบอร์มิวสิค', caption: 'วงเชมเบอร์มิวสิคในงานเลี้ยงรับรอง', category: 'ceremony' },
   ],
   // Add Facebook or YouTube video URLs here, e.g.
