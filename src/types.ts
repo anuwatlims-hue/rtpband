@@ -18,6 +18,8 @@ export interface Activity {
   image: string;
   /** Link to the original Facebook post or news source */
   sourceUrl?: string;
+  /** When set, the card image and a call-to-action link to this video or playlist */
+  videoUrl?: string;
 }
 
 export interface Photo {

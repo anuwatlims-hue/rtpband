@@ -42,6 +42,17 @@ describe('page', () => {
     expect(root.querySelectorAll('img:not([loading="lazy"])')).toHaveLength(1);
   });
 
+  it('links video activities from the image and the call-to-action', () => {
+    const withVideo = content.activities.filter((a) => a.videoUrl);
+    expect(withVideo.length).toBeGreaterThanOrEqual(2);
+    for (const a of withVideo) {
+      const links = [...root.querySelectorAll<HTMLAnchorElement>(`a[href="${a.videoUrl}"]`)];
+      expect(links.some((l) => l.classList.contains('gold-frame'))).toBe(true);
+      expect(links.some((l) => l.classList.contains('more'))).toBe(true);
+      links.forEach((l) => expect(l.rel).toContain('noopener'));
+    }
+  });
+
   it('lists activities newest first', () => {
     const dates = [...root.querySelectorAll('.activity time')].map((t) => t.getAttribute('datetime')!);
     expect(dates).toEqual([...dates].sort().reverse());

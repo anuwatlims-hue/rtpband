@@ -35,12 +35,17 @@ export function renderActivities(items: Activity[]): string {
   return sortByDateDesc(items)
     .map(
       (a) => `<article class="card activity" data-category="${a.category}">
-  <div class="gold-frame">${img(a.image, '')}${corners}</div>
+  ${
+    a.videoUrl
+      ? `<a class="gold-frame has-video" href="${esc(a.videoUrl)}" target="_blank" rel="noopener" aria-label="ดูวิดีโอบน YouTube: ${esc(a.title)}">${img(a.image, '')}<span class="play mini" aria-hidden="true"></span>${corners}</a>`
+      : `<div class="gold-frame">${img(a.image, '')}${corners}</div>`
+  }
   <div class="card-body">
     <p class="meta"><span class="badge">${categoryLabels[a.category]}</span><time datetime="${esc(a.date)}">${formatThaiDate(a.date)}</time></p>
     <h3>${esc(a.title)}</h3>
     <p class="loc">📍 ${esc(a.location)}</p>
     <p>${esc(a.summary)}</p>
+    ${a.videoUrl ? `<a class="more" href="${esc(a.videoUrl)}" target="_blank" rel="noopener">ดูวิดีโอบน YouTube →</a>` : ''}
     ${a.sourceUrl ? `<a class="more" href="${esc(a.sourceUrl)}" target="_blank" rel="noopener">ดูรายละเอียด →</a>` : ''}
   </div>
 </article>`,
