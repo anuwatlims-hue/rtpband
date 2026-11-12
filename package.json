@@ -1,0 +1,25 @@
+{
+  "name": "rtpband",
+  "version": "1.0.0",
+  "private": true,
+  "description": "เว็บไซต์ดุริยางค์ตำรวจ: ผลงาน กิจกรรม ภาพนิ่ง และวิดีโอ",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anuwatlims-hue/rtpband.git"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "jsdom": "^31.0.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  }
+}
