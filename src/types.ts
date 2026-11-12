@@ -40,6 +40,10 @@ export interface Video {
 export interface SiteContent {
   name: string;
   nameEn: string;
+  division: string;
+  divisionEn: string;
+  motto: string;
+  mottoEn: string;
   tagline: string;
   about: string[];
   facebookUrl: string;
