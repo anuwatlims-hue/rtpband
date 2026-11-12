@@ -9,6 +9,10 @@ import type { SiteContent } from '../types';
 export const content: SiteContent = {
   name: 'ดุริยางค์ตำรวจ',
   nameEn: 'Royal Thai Police Band',
+  division: 'ฝ่ายดนตรี กองสวัสดิการ สำนักงานกำลังพล สำนักงานตำรวจแห่งชาติ',
+  divisionEn: 'Police Music Division · Welfare Division, Royal Thai Police',
+  motto: 'ดนตรีเพื่อภารกิจของสำนักงานตำรวจแห่งชาติ',
+  mottoEn: 'Music for the mission of the Royal Thai Police',
   tagline: 'ส่งต่อความสุขและเกียรติยศ ผ่านเสียงดนตรีของผู้พิทักษ์สันติราษฎร์',
   about: [
     'ดุริยางค์ตำรวจ ฝ่ายดนตรี กองสวัสดิการ สำนักงานตำรวจแห่งชาติ รับผิดชอบงานบริการด้านดนตรีสำหรับงานราชพิธี รัฐพิธี และพิธีการสำคัญของสำนักงานตำรวจแห่งชาติ รวมถึงหน่วยงานราชการอื่นที่ร้องขอ',
@@ -57,6 +61,16 @@ export const content: SiteContent = {
     },
   ],
   activities: [
+    {
+      id: 'kathin-2026',
+      title: 'บรรเลงดนตรีในพิธีถวายผ้าพระกฐินพระราชทาน',
+      date: '2026-11-12',
+      location: 'พระอุโบสถวัดตรีทศเทพ',
+      category: 'ceremony',
+      summary:
+        'วงดนตรีไทย ปฏิบัติราชการบรรเลงดนตรีในพิธีถวายผ้าพระกฐินพระราชทานของสำนักงานตำรวจแห่งชาติ',
+      image: '/media/thai.svg',
+    },
     {
       id: 'thonglor-symphony-2026',
       title: 'THONG LOR: SYMPHONY OF GIVING',

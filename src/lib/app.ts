@@ -1,6 +1,6 @@
 import type { Category, SiteContent } from '../types';
 import { facebookPagePluginUrl, filterByCategory } from './media';
-import { renderActivities, renderGallery, renderPage } from './render';
+import { asset, renderActivities, renderGallery, renderPage } from './render';
 
 export interface App {
   openLightbox(index: number): void;
@@ -59,7 +59,7 @@ export function mount(root: HTMLElement, content: SiteContent): App {
   const show = (i: number) => {
     current = (i + photos.length) % photos.length;
     const p = photos[current];
-    lbImg.src = p.src;
+    lbImg.src = asset(p.src);
     lbImg.alt = p.alt;
     lbCap.textContent = `${p.caption} (${current + 1}/${photos.length})`;
   };

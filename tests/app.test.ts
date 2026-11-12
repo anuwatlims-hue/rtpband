@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { content } from '../src/data/content';
 import { mount, type App } from '../src/lib/app';
-import { esc, renderVideos } from '../src/lib/render';
+import { asset, esc, renderVideos } from '../src/lib/render';
 import type { SiteContent } from '../src/types';
 
 let root: HTMLElement;
@@ -122,4 +122,10 @@ describe('videos', () => {
 
 it('escapes HTML in content', () => {
   expect(esc('<img onerror="x">&\'')).toBe('&#60;img onerror=&#34;x&#34;&#62;&#38;&#39;');
+});
+
+it('resolves media paths against the deploy base only for root-relative paths', () => {
+  expect(asset('/media/a.svg')).toBe(`${import.meta.env.BASE_URL}media/a.svg`);
+  expect(asset('https://cdn.example.com/a.jpg')).toBe('https://cdn.example.com/a.jpg');
+  expect(asset('//cdn.example.com/a.jpg')).toBe('//cdn.example.com/a.jpg');
 });
