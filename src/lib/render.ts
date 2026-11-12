@@ -5,11 +5,26 @@ export function esc(value: string): string {
   return value.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 }
 
+/** Resolve root-relative media paths against the deploy base (e.g. /rtpband/ on GitHub Pages). */
+export function asset(path: string): string {
+  return path.startsWith('/') && !path.startsWith('//') ? import.meta.env.BASE_URL + path.slice(1) : path;
+}
+
+const corners = '<i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>';
+
+function img(src: string, alt: string): string {
+  return `<img src="${esc(asset(src))}" alt="${esc(alt)}" loading="lazy" decoding="async" width="800" height="600">`;
+}
+
+function heading(text: string, light = false): string {
+  return `<div class="heading${light ? ' light' : ''}"><h2 class="ribbon"><span class="clef" aria-hidden="true">♪</span>${esc(text)}</h2></div>`;
+}
+
 export function renderWorks(works: Work[]): string {
   return works
     .map(
       (w) => `<article class="card work">
-  <img src="${esc(w.image)}" alt="${esc(w.title)}" loading="lazy" decoding="async" width="800" height="600">
+  <div class="gold-frame">${img(w.image, w.title)}${corners}</div>
   <div class="card-body"><h3>${esc(w.title)}</h3><p>${esc(w.description)}</p></div>
 </article>`,
     )
@@ -20,7 +35,7 @@ export function renderActivities(items: Activity[]): string {
   return sortByDateDesc(items)
     .map(
       (a) => `<article class="card activity" data-category="${a.category}">
-  <img src="${esc(a.image)}" alt="" loading="lazy" decoding="async" width="800" height="600">
+  <div class="gold-frame">${img(a.image, '')}${corners}</div>
   <div class="card-body">
     <p class="meta"><span class="badge">${categoryLabels[a.category]}</span><time datetime="${esc(a.date)}">${formatThaiDate(a.date)}</time></p>
     <h3>${esc(a.title)}</h3>
@@ -48,8 +63,8 @@ export function renderFilters(categories: Category[], active: Category | 'all'):
 export function renderGallery(photos: Photo[]): string {
   return photos
     .map(
-      (p, i) => `<li><button type="button" class="thumb" data-index="${i}" aria-label="ดูภาพ: ${esc(p.caption)}">
-  <img src="${esc(p.src)}" alt="${esc(p.alt)}" loading="lazy" decoding="async" width="800" height="600">
+      (p, i) => `<li><button type="button" class="thumb gold-frame" data-index="${i}" aria-label="ดูภาพ: ${esc(p.caption)}">
+  ${img(p.src, p.alt)}${corners}
 </button></li>`,
     )
     .join('');
@@ -57,7 +72,7 @@ export function renderGallery(photos: Photo[]): string {
 
 export function renderVideos(videos: Video[], facebookUrl: string): string {
   if (videos.length === 0) {
-    return `<div class="empty">
+    return `<div class="empty gold-frame">${corners}
   <p>ชมวิดีโอการแสดงทั้งหมดได้ที่เพจ Facebook ของดุริยางค์ตำรวจ</p>
   <a class="btn" href="${esc(facebookUrl)}videos/" target="_blank" rel="noopener">▶ ดูวิดีโอบน Facebook</a>
 </div>`;
@@ -65,15 +80,17 @@ export function renderVideos(videos: Video[], facebookUrl: string): string {
   return `<ul class="video-grid">${videos
     .map((v) => {
       const src = parseVideoUrl(v.url);
+      const poster = esc(asset(v.poster));
       const date = v.date ? `<time datetime="${esc(v.date)}">${formatThaiDate(v.date)}</time>` : '';
+      const title = `<h3>${esc(v.title)}</h3>${date}`;
       if (src.kind === 'file') {
-        return `<li class="video"><div class="frame"><video controls preload="none" playsinline poster="${esc(v.poster)}"><source src="${esc(src.src)}" type="${src.type}"></video></div><h3>${esc(v.title)}</h3>${date}</li>`;
+        return `<li class="video"><div class="frame gold-frame"><video controls preload="none" playsinline poster="${poster}"><source src="${esc(asset(src.src))}" type="${src.type}"></video></div>${title}</li>`;
       }
       if (src.kind === 'unknown') {
-        return `<li class="video"><a class="frame facade" href="${esc(src.href)}" target="_blank" rel="noopener"><img src="${esc(v.poster)}" alt="" loading="lazy"><span class="play" aria-hidden="true"></span></a><h3>${esc(v.title)}</h3>${date}</li>`;
+        return `<li class="video"><a class="frame facade gold-frame" href="${esc(src.href)}" target="_blank" rel="noopener"><img src="${poster}" alt="" loading="lazy"><span class="play" aria-hidden="true"></span>${corners}</a>${title}</li>`;
       }
       // Click-to-load facade: third-party players are only fetched on demand to keep initial load fast.
-      return `<li class="video"><button type="button" class="frame facade" data-embed="${esc(src.embedUrl)}" data-title="${esc(v.title)}" aria-label="เล่นวิดีโอ: ${esc(v.title)}"><img src="${esc(v.poster)}" alt="" loading="lazy"><span class="play" aria-hidden="true"></span></button><h3>${esc(v.title)}</h3>${date}</li>`;
+      return `<li class="video"><button type="button" class="frame facade gold-frame" data-embed="${esc(src.embedUrl)}" data-title="${esc(v.title)}" aria-label="เล่นวิดีโอ: ${esc(v.title)}"><img src="${poster}" alt="" loading="lazy"><span class="play" aria-hidden="true"></span>${corners}</button>${title}</li>`;
     })
     .join('')}</ul>`;
 }
@@ -95,42 +112,48 @@ export function renderPage(c: SiteContent): string {
 <main id="main">
   <section id="top" class="hero">
     <div class="container">
-      <p class="eyebrow">${esc(c.nameEn)}</p>
-      <h1>${esc(c.name)}</h1>
+      <p class="division">${esc(c.division)}<small>${esc(c.divisionEn)}</small></p>
+      <h1 class="gold-text">${esc(c.name)}</h1>
+      <p class="eyebrow"><span>${esc(c.nameEn)}</span></p>
       <p class="tagline">${esc(c.tagline)}</p>
       <div class="actions"><a class="btn" href="#activities">ชมกิจกรรม</a><a class="btn ghost" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">ติดตามบน Facebook</a></div>
     </div>
   </section>
   <section id="about" class="section container about">${c.about.map((p) => `<p>${esc(p)}</p>`).join('')}</section>
   <section id="works" class="section container">
-    <h2>ผลงานและวงดนตรี</h2>
+    ${heading('ผลงานและวงดนตรี')}
     <div class="grid">${renderWorks(c.works)}</div>
   </section>
   <section id="activities" class="section alt"><div class="container">
-    <h2>กิจกรรม</h2>
+    ${heading('กิจกรรม', true)}
     <div class="filters" data-target="activities" role="group" aria-label="กรองกิจกรรม">${renderFilters(categories, 'all')}</div>
     <div class="grid" id="activity-list">${renderActivities(c.activities)}</div>
   </div></section>
   <section id="gallery" class="section container">
-    <h2>ภาพนิ่ง</h2>
+    ${heading('ภาพนิ่ง')}
     <div class="filters" data-target="gallery" role="group" aria-label="กรองภาพ">${renderFilters(photoCategories, 'all')}</div>
     <ul class="gallery" id="gallery-list">${renderGallery(c.photos)}</ul>
   </section>
   <section id="videos" class="section alt"><div class="container">
-    <h2>วิดีโอ</h2>
+    ${heading('วิดีโอ', true)}
     <div id="video-list">${renderVideos(c.videos, c.facebookUrl)}</div>
   </div></section>
   <section id="feed" class="section container">
-    <h2>ข่าวล่าสุดจาก Facebook</h2>
+    ${heading('ข่าวล่าสุดจาก Facebook')}
     <div class="fb-feed" id="fb-feed"><a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">เปิดเพจ Facebook</a></div>
   </section>
 </main>
 <footer class="site-footer"><div class="container">
-  <p><strong>${esc(c.name)}</strong> · ${esc(c.nameEn)}</p>
-  <p>${esc(c.address)}</p>
-  <p>โทร ${esc(c.phone)} · <a href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">Facebook</a>${
-    c.website ? ` · <a href="${esc(c.website)}" target="_blank" rel="noopener">เว็บไซต์</a>` : ''
-  }</p>
+  <div class="footer-mark">
+    <p class="en">POLICE MUSIC DIVISION<small>ROYAL THAI POLICE</small></p>
+    <p class="motto">“${esc(c.motto)}”<small>${esc(c.mottoEn)}</small></p>
+  </div>
+  <div class="footer-info">
+    <p>${esc(c.address)}</p>
+    <p>โทร ${esc(c.phone)} · <a href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">Facebook</a>${
+      c.website ? ` · <a href="${esc(c.website)}" target="_blank" rel="noopener">เว็บไซต์</a>` : ''
+    }</p>
+  </div>
 </div></footer>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ภาพขยาย" hidden>
   <button type="button" class="lb-close" aria-label="ปิด">×</button>
