@@ -1,5 +1,5 @@
 import type { Category, SiteContent } from '../types';
-import { facebookPagePluginUrl, filterByCategory } from './media';
+import { facebookPagePluginUrl, facebookVideoPluginUrl, filterByCategory } from './media';
 import { asset, renderActivities, renderGallery, renderPage } from './render';
 
 export interface App {
@@ -124,17 +124,20 @@ export function mount(root: HTMLElement, content: SiteContent): App {
     btn.replaceWith(iframe);
   });
 
-  // Facebook Page Plugin, loaded only when the section nears the viewport
+  // Embed the selected video directly; fall back to the Page Plugin when unset.
   const feed = $<HTMLElement>('#fb-feed');
   const feedFrame = $<HTMLElement>('#fb-feed-frame');
   const loadFeed = () => {
     if (feedFrame.querySelector('iframe')) return;
     const iframe = document.createElement('iframe');
-    iframe.src = facebookPagePluginUrl(content.facebookUrl, feedFrame.clientWidth || 500);
-    iframe.title = `Facebook: ${content.name}`;
+    iframe.src = content.latestFacebookVideo
+      ? facebookVideoPluginUrl(content.latestFacebookVideo.url, feedFrame.clientWidth || 500)
+      : facebookPagePluginUrl(content.facebookUrl, feedFrame.clientWidth || 500);
+    iframe.title = content.latestFacebookVideo?.title ?? `Facebook: ${content.name}`;
     iframe.setAttribute('aria-describedby', 'fb-feed-help');
     // IntersectionObserver already defers loading. Do not defer a second time.
     iframe.allow = 'encrypted-media; picture-in-picture; fullscreen';
+    iframe.allowFullscreen = true;
     feedFrame.replaceChildren(iframe);
   };
   let observer: IntersectionObserver | undefined;
