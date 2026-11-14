@@ -1,4 +1,4 @@
-import type { Activity, Category, Photo, SiteContent, Video, Work } from '../types';
+import type { Activity, Category, FeaturedFacebookPost, Photo, SiteContent, Video, Work } from '../types';
 import { categoryLabels, formatThaiDate, parseVideoUrl, sortByDateDesc } from './media';
 
 export function esc(value: string): string {
@@ -11,6 +11,20 @@ export function asset(path: string): string {
 }
 
 const corners = '<i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>';
+
+function renderFeaturedFacebookPosts(posts: FeaturedFacebookPost[] | undefined): string {
+  if (!posts?.length) return '';
+  return `${posts.map((post) => {
+    const height = Math.round(Math.min(1200, Math.max(300, post.embedHeight ?? 620)));
+    return `<article class="fb-featured">
+      <h3>${esc(post.title)}</h3>
+      <time datetime="${esc(post.date)}">${formatThaiDate(post.date)}</time>
+      <div class="fb-featured-frame" data-facebook-post="${esc(post.id)}" data-facebook-post-url="${esc(post.url)}" data-facebook-post-title="${esc(post.title)}" style="height:${height}px"></div>
+      <a class="btn" href="${esc(post.url)}" target="_blank" rel="noopener">เปิดโพสต์นี้บน Facebook</a>
+    </article>`;
+  }).join('')}
+  <p class="fb-feed-label">ฟีดอัตโนมัติจากเพจ Facebook</p>`;
+}
 
 function img(src: string, alt: string): string {
   return `<img src="${esc(asset(src))}" alt="${esc(alt)}" loading="lazy" decoding="async" width="800" height="600">`;
@@ -145,13 +159,7 @@ export function renderPage(c: SiteContent): string {
   </div></section>
   <section id="feed" class="section container">
     ${heading('ข่าวล่าสุดจาก Facebook')}
-    ${c.featuredFacebookPost ? `<article class="fb-featured">
-      <h3>${esc(c.featuredFacebookPost.title)}</h3>
-      <time datetime="${esc(c.featuredFacebookPost.date)}">${formatThaiDate(c.featuredFacebookPost.date)}</time>
-      <div class="fb-featured-frame" id="fb-featured-frame"></div>
-      <a class="btn" href="${esc(c.featuredFacebookPost.url)}" target="_blank" rel="noopener">เปิดโพสต์นี้บน Facebook</a>
-    </article>
-    <p class="fb-feed-label">ฟีดอัตโนมัติจากเพจ Facebook</p>` : ''}
+    ${renderFeaturedFacebookPosts(c.featuredFacebookPosts)}
     <div class="fb-feed" id="fb-feed"><a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">เปิดเพจ Facebook</a></div>
   </section>
 </main>

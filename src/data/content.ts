@@ -19,11 +19,22 @@ export const content: SiteContent = {
     'นอกจากงานพิธีการ ยังจัดการแสดงดนตรีเพื่อเป็นสวัสดิการแก่ข้าราชการตำรวจและประชาชน ดูแลงานวิชาการดนตรี การประพันธ์และเรียบเรียงเสียงประสาน และเปิดโรงเรียนการดนตรีสำหรับผู้สนใจ',
   ],
   facebookUrl: 'https://www.facebook.com/ThaiPoliceBand/',
-  featuredFacebookPost: {
-    url: 'https://www.facebook.com/reel/1613223503936214/',
-    title: 'วงปี่สก๊อตดุริยางค์ตำรวจ ร่วมปฏิบัติภารกิจในพิธีรับ–ส่งนายกรัฐมนตรีสาธารณรัฐประชาชนจีน',
-    date: '2026-11-14',
-  },
+  featuredFacebookPosts: [
+    {
+      id: 'china-pm-bagpipes-2026',
+      url: 'https://www.facebook.com/reel/1613223503936214/',
+      title: 'วงปี่สก๊อตดุริยางค์ตำรวจ ร่วมปฏิบัติภารกิจในพิธีรับ–ส่งนายกรัฐมนตรีสาธารณรัฐประชาชนจีน',
+      date: '2026-11-14',
+      embedHeight: 510,
+    },
+    {
+      id: 'royal-kathin-2026',
+      url: 'https://www.facebook.com/ThaiPoliceBand/posts/1614402644061702/',
+      title: 'ฝ่ายดนตรี สำนักงานตำรวจแห่งชาติ ร่วมบรรเลงดนตรีไทยในพิธีถวายผ้าพระกฐินพระราชทาน ประจำปี 2569',
+      date: '2026-11-12',
+      embedHeight: 765,
+    },
+  ],
   website: 'http://www.thaipoliceband.org',
   address: '91 หมู่ 4 ถนนแจ้งวัฒนะ ตำบลคลองเกลือ อำเภอปากเกร็ด จังหวัดนนทบุรี 11120',
   phone: '0-2205-2522',

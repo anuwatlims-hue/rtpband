@@ -39,6 +39,15 @@ export interface Video {
   date?: string;
 }
 
+export interface FeaturedFacebookPost {
+  id: string;
+  url: string;
+  title: string;
+  date: string;
+  /** iframe height in pixels; Facebook does not expose cross-origin content height. */
+  embedHeight?: number;
+}
+
 export interface SiteContent {
   name: string;
   nameEn: string;
@@ -49,12 +58,8 @@ export interface SiteContent {
   tagline: string;
   about: string[];
   facebookUrl: string;
-  /** Public post pinned above the automatic Page Plugin feed. */
-  featuredFacebookPost?: {
-    url: string;
-    title: string;
-    date: string;
-  };
+  /** Public posts pinned above the automatic Page Plugin feed. */
+  featuredFacebookPosts?: FeaturedFacebookPost[];
   website?: string;
   address: string;
   phone: string;
