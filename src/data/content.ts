@@ -3,8 +3,8 @@ import type { SiteContent } from '../types';
 /**
  * Site content. Add new activities, photos and videos here (see README).
  * Facebook blocks automated scraping, so items are curated manually from
- * https://www.facebook.com/ThaiPoliceBand/ — the live page feed is embedded
- * separately via the official Facebook Page Plugin.
+ * https://www.facebook.com/ThaiPoliceBand/ — latestFacebookVideo is a manually
+ * selected public clip, embedded directly via the Facebook Video Player.
  */
 export const content: SiteContent = {
   name: 'ดุริยางค์ตำรวจ',
@@ -19,6 +19,11 @@ export const content: SiteContent = {
     'นอกจากงานพิธีการ ยังจัดการแสดงดนตรีเพื่อเป็นสวัสดิการแก่ข้าราชการตำรวจและประชาชน ดูแลงานวิชาการดนตรี การประพันธ์และเรียบเรียงเสียงประสาน และเปิดโรงเรียนการดนตรีสำหรับผู้สนใจ',
   ],
   facebookUrl: 'https://www.facebook.com/ThaiPoliceBand/',
+  latestFacebookVideo: {
+    url: 'https://www.facebook.com/reel/1613223503936214/',
+    title: 'วงปี่สก๊อตดุริยางค์ตำรวจ บรรเลงดนตรีในพิธีรับ–ส่งนายกรัฐมนตรีสาธารณรัฐประชาชนจีน ณ อาคารรัฐสภา',
+    date: '2026-11-14',
+  },
   website: 'http://www.thaipoliceband.org',
   address: '91 หมู่ 4 ถนนแจ้งวัฒนะ ตำบลคลองเกลือ อำเภอปากเกร็ด จังหวัดนนทบุรี 11120',
   phone: '0-2205-2522',

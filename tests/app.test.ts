@@ -32,7 +32,7 @@ describe('content', () => {
 });
 
 describe('page', () => {
-  beforeEach(() => setup());
+  beforeEach(() => setup({ ...content, latestFacebookVideo: undefined }));
 
   it('renders every section and item with lazy images', () => {
     for (const id of ['works', 'activities', 'gallery', 'videos', 'feed']) expect(q(`#${id}`)).toBeTruthy();
@@ -125,7 +125,7 @@ it('defers the feed until visible, avoids duplicates, and disconnects on destroy
     observe = observe;
     disconnect = disconnect;
   });
-  setup();
+  setup({ ...content, latestFacebookVideo: undefined });
   expect(observe).toHaveBeenCalledWith(q('#fb-feed'));
   expect(root.querySelector('#fb-feed iframe')).toBeNull();
   const intersect = () => notify([{ isIntersecting: true } as IntersectionObserverEntry], {} as IntersectionObserver);
@@ -136,6 +136,30 @@ it('defers the feed until visible, avoids duplicates, and disconnects on destroy
   app!.destroy();
   app = undefined;
   expect(disconnect).toHaveBeenCalled();
+});
+
+describe('selected Facebook news video', () => {
+  it('embeds the supplied clip directly without autoplay and keeps its source link', () => {
+    setup();
+    const video = content.latestFacebookVideo!;
+    const frame = q<HTMLIFrameElement>('#fb-feed iframe');
+    const src = new URL(frame.src);
+    expect(src.pathname).toBe('/plugins/video.php');
+    expect(src.searchParams.get('href')).toBe('https://www.facebook.com/reel/1613223503936214/');
+    expect(src.searchParams.get('autoplay')).toBe('false');
+    expect(frame.title).toBe(video.title);
+    expect(frame.allowFullscreen).toBe(true);
+    expect(q('#fb-feed h3').textContent).toBe(video.title);
+    expect(q('#fb-feed time').getAttribute('datetime')).toBe(video.date);
+    expect(q<HTMLAnchorElement>(`#fb-feed a[href="${video.url}"]`).textContent).toBe('ชมคลิปบน Facebook');
+    expect(root.querySelector('#fb-feed iframe[src*="/plugins/page.php"]')).toBeNull();
+    frame.dispatchEvent(new Event('error'));
+    expect(q('#fb-feed-help').textContent).toContain('หากเล่นคลิปไม่ได้');
+    q<HTMLButtonElement>('#fb-feed-retry').click();
+    expect(root.querySelectorAll('#fb-feed iframe')).toHaveLength(1);
+    expect(q<HTMLIFrameElement>('#fb-feed iframe').src).toBe(frame.src);
+    expect(q('#fb-feed iframe')).not.toBe(frame);
+  });
 });
 
 describe('videos', () => {

@@ -49,6 +49,8 @@ export interface SiteContent {
   tagline: string;
   about: string[];
   facebookUrl: string;
+  /** Curated public Facebook video; update when selecting a newer clip. */
+  latestFacebookVideo?: { url: string; title: string; date: string };
   website?: string;
   address: string;
   phone: string;
