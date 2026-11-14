@@ -49,6 +49,12 @@ export interface SiteContent {
   tagline: string;
   about: string[];
   facebookUrl: string;
+  /** Public post pinned above the automatic Page Plugin feed. */
+  featuredFacebookPost?: {
+    url: string;
+    title: string;
+    date: string;
+  };
   website?: string;
   address: string;
   phone: string;

@@ -102,6 +102,19 @@ describe('page', () => {
   it('loads the Facebook page plugin when IntersectionObserver is unavailable', () => {
     expect(q('#fb-feed iframe').getAttribute('src')).toContain('facebook.com/plugins/page.php');
   });
+
+  it('shows a selected post above the automatic Facebook feed', () => {
+    const post = content.featuredFacebookPost!;
+    const frame = q<HTMLIFrameElement>('#fb-featured-frame iframe');
+    const src = new URL(frame.src);
+    expect(src.pathname).toBe('/plugins/post.php');
+    expect(src.searchParams.get('href')).toBe(post.url);
+    expect(frame.title).toContain(post.title);
+    expect(frame.allowFullscreen).toBe(true);
+    expect(q('#feed time').getAttribute('datetime')).toBe(post.date);
+    expect(q<HTMLAnchorElement>(`#feed a[href="${post.url}"]`).rel).toContain('noopener');
+    expect(q('#fb-feed iframe').getAttribute('src')).toContain('/plugins/page.php');
+  });
 });
 
 describe('videos', () => {
