@@ -145,7 +145,16 @@ export function renderPage(c: SiteContent): string {
   </div></section>
   <section id="feed" class="section container">
     ${heading('ข่าวล่าสุดจาก Facebook')}
-    <div class="fb-feed" id="fb-feed"><a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">เปิดเพจ Facebook</a></div>
+    <div class="fb-feed" id="fb-feed">
+      <div class="fb-feed-help">
+        <p id="fb-feed-help">หากไม่เห็นโพสต์หรือเห็นเฉพาะชื่อเพจ Facebook อาจจำกัดการแสดงข่าวบนเว็บไซต์นี้ สามารถเปิดอ่านข่าวล่าสุดบนเพจได้โดยตรง</p>
+        <div class="actions">
+          <a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">อ่านข่าวล่าสุดบน Facebook</a>
+          <button class="btn" type="button" id="fb-feed-retry">โหลดฟีดอีกครั้ง</button>
+        </div>
+      </div>
+      <div class="fb-feed-frame" id="fb-feed-frame"></div>
+    </div>
   </section>
 </main>
 <footer class="site-footer"><div class="container">

@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { content } from '../src/data/content';
 import { mount, type App } from '../src/lib/app';
 import { asset, esc, renderVideos } from '../src/lib/render';
@@ -17,6 +17,7 @@ afterEach(() => {
   app?.destroy();
   app = undefined;
   root?.remove();
+  vi.unstubAllGlobals();
 });
 
 describe('content', () => {
@@ -102,6 +103,39 @@ describe('page', () => {
   it('loads the Facebook page plugin when IntersectionObserver is unavailable', () => {
     expect(q('#fb-feed iframe').getAttribute('src')).toContain('facebook.com/plugins/page.php');
   });
+
+  it('keeps a direct news link visible and replaces the frame on retry', () => {
+    const link = q<HTMLAnchorElement>('#fb-feed-help + .actions a');
+    expect(link.href).toBe(content.facebookUrl);
+    const frame = q('#fb-feed iframe');
+    frame.dispatchEvent(new Event('load'));
+    expect(q('#fb-feed-help').textContent).toContain('หากไม่เห็นโพสต์');
+    q<HTMLButtonElement>('#fb-feed-retry').click();
+    expect(root.querySelectorAll('#fb-feed iframe')).toHaveLength(1);
+    expect(q('#fb-feed iframe')).not.toBe(frame);
+  });
+});
+
+it('defers the feed until visible, avoids duplicates, and disconnects on destroy', () => {
+  let notify: IntersectionObserverCallback;
+  const observe = vi.fn();
+  const disconnect = vi.fn();
+  vi.stubGlobal('IntersectionObserver', class {
+    constructor(callback: IntersectionObserverCallback) { notify = callback; }
+    observe = observe;
+    disconnect = disconnect;
+  });
+  setup();
+  expect(observe).toHaveBeenCalledWith(q('#fb-feed'));
+  expect(root.querySelector('#fb-feed iframe')).toBeNull();
+  const intersect = () => notify([{ isIntersecting: true } as IntersectionObserverEntry], {} as IntersectionObserver);
+  intersect();
+  intersect();
+  expect(root.querySelectorAll('#fb-feed iframe')).toHaveLength(1);
+  expect(q('#fb-feed iframe').getAttribute('loading')).not.toBe('lazy');
+  app!.destroy();
+  app = undefined;
+  expect(disconnect).toHaveBeenCalled();
 });
 
 describe('videos', () => {

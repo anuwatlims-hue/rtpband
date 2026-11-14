@@ -73,7 +73,7 @@ export function formatThaiDate(iso: string): string {
 export function facebookPagePluginUrl(pageUrl: string, width: number): string {
   const params = new URLSearchParams({
     href: pageUrl,
-    tabs: 'timeline,events',
+    tabs: 'timeline',
     width: String(Math.round(Math.min(500, Math.max(180, width)))),
     height: '640',
     small_header: 'false',

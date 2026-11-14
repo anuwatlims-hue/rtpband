@@ -126,16 +126,23 @@ export function mount(root: HTMLElement, content: SiteContent): App {
 
   // Facebook Page Plugin, loaded only when the section nears the viewport
   const feed = $<HTMLElement>('#fb-feed');
+  const feedFrame = $<HTMLElement>('#fb-feed-frame');
   const loadFeed = () => {
-    if (feed.querySelector('iframe')) return;
+    if (feedFrame.querySelector('iframe')) return;
     const iframe = document.createElement('iframe');
-    iframe.src = facebookPagePluginUrl(content.facebookUrl, feed.clientWidth || 500);
+    iframe.src = facebookPagePluginUrl(content.facebookUrl, feedFrame.clientWidth || 500);
     iframe.title = `Facebook: ${content.name}`;
-    iframe.loading = 'lazy';
+    iframe.setAttribute('aria-describedby', 'fb-feed-help');
+    // IntersectionObserver already defers loading. Do not defer a second time.
     iframe.allow = 'encrypted-media; picture-in-picture; fullscreen';
-    feed.prepend(iframe);
+    feedFrame.replaceChildren(iframe);
   };
   let observer: IntersectionObserver | undefined;
+  on($('#fb-feed-retry'), 'click', () => {
+    observer?.disconnect();
+    feedFrame.replaceChildren();
+    loadFeed();
+  });
   if ('IntersectionObserver' in window) {
     observer = new IntersectionObserver(
       (entries) => {

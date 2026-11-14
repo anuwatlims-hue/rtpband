@@ -62,6 +62,6 @@ describe('helpers', () => {
     const u = new URL(facebookPagePluginUrl('https://www.facebook.com/ThaiPoliceBand/', 1200));
     expect(u.searchParams.get('href')).toBe('https://www.facebook.com/ThaiPoliceBand/');
     expect(u.searchParams.get('width')).toBe('500');
-    expect(u.searchParams.get('tabs')).toBe('timeline,events');
+    expect(u.searchParams.get('tabs')).toBe('timeline');
   });
 });
