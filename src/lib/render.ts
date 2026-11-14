@@ -145,6 +145,13 @@ export function renderPage(c: SiteContent): string {
   </div></section>
   <section id="feed" class="section container">
     ${heading('ข่าวล่าสุดจาก Facebook')}
+    ${c.featuredFacebookPost ? `<article class="fb-featured">
+      <h3>${esc(c.featuredFacebookPost.title)}</h3>
+      <time datetime="${esc(c.featuredFacebookPost.date)}">${formatThaiDate(c.featuredFacebookPost.date)}</time>
+      <div class="fb-featured-frame" id="fb-featured-frame"></div>
+      <a class="btn" href="${esc(c.featuredFacebookPost.url)}" target="_blank" rel="noopener">เปิดโพสต์นี้บน Facebook</a>
+    </article>
+    <p class="fb-feed-label">ฟีดอัตโนมัติจากเพจ Facebook</p>` : ''}
     <div class="fb-feed" id="fb-feed"><a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">เปิดเพจ Facebook</a></div>
   </section>
 </main>

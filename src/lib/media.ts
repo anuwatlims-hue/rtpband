@@ -83,3 +83,13 @@ export function facebookPagePluginUrl(pageUrl: string, width: number): string {
   });
   return `https://www.facebook.com/plugins/page.php?${params}`;
 }
+
+/** Build an Embedded Post URL. It supports public photo, text and video posts. */
+export function facebookPostPluginUrl(postUrl: string, width: number): string {
+  const params = new URLSearchParams({
+    href: postUrl,
+    show_text: 'true',
+    width: String(Math.round(Math.min(500, Math.max(180, width)))),
+  });
+  return `https://www.facebook.com/plugins/post.php?${params}`;
+}

@@ -1,5 +1,5 @@
 import type { Category, SiteContent } from '../types';
-import { facebookPagePluginUrl, filterByCategory } from './media';
+import { facebookPagePluginUrl, facebookPostPluginUrl, filterByCategory } from './media';
 import { asset, renderActivities, renderGallery, renderPage } from './render';
 
 export interface App {
@@ -124,16 +124,25 @@ export function mount(root: HTMLElement, content: SiteContent): App {
     btn.replaceWith(iframe);
   });
 
-  // Facebook Page Plugin, loaded only when the section nears the viewport
+  // Featured post + automatic Page Plugin feed, loaded near the viewport.
   const feed = $<HTMLElement>('#fb-feed');
+  const featured = root.querySelector<HTMLElement>('#fb-featured-frame');
   const loadFeed = () => {
-    if (feed.querySelector('iframe')) return;
-    const iframe = document.createElement('iframe');
-    iframe.src = facebookPagePluginUrl(content.facebookUrl, feed.clientWidth || 500);
-    iframe.title = `Facebook: ${content.name}`;
-    iframe.loading = 'lazy';
-    iframe.allow = 'encrypted-media; picture-in-picture; fullscreen';
-    feed.prepend(iframe);
+    if (featured && content.featuredFacebookPost && !featured.querySelector('iframe')) {
+      const postFrame = document.createElement('iframe');
+      postFrame.src = facebookPostPluginUrl(content.featuredFacebookPost.url, featured.clientWidth || 500);
+      postFrame.title = `โพสต์ล่าสุด: ${content.featuredFacebookPost.title}`;
+      postFrame.allow = 'encrypted-media; picture-in-picture; fullscreen';
+      postFrame.allowFullscreen = true;
+      featured.append(postFrame);
+    }
+    if (!feed.querySelector('iframe')) {
+      const pageFrame = document.createElement('iframe');
+      pageFrame.src = facebookPagePluginUrl(content.facebookUrl, feed.clientWidth || 500);
+      pageFrame.title = `Facebook: ${content.name}`;
+      pageFrame.allow = 'encrypted-media; picture-in-picture; fullscreen';
+      feed.prepend(pageFrame);
+    }
   };
   let observer: IntersectionObserver | undefined;
   if ('IntersectionObserver' in window) {

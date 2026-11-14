@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { facebookPagePluginUrl, filterByCategory, formatThaiDate, parseVideoUrl, sortByDateDesc } from '../src/lib/media';
+import { facebookPagePluginUrl, facebookPostPluginUrl, filterByCategory, formatThaiDate, parseVideoUrl, sortByDateDesc } from '../src/lib/media';
 
 describe('parseVideoUrl', () => {
   it.each([
@@ -63,5 +63,13 @@ describe('helpers', () => {
     expect(u.searchParams.get('href')).toBe('https://www.facebook.com/ThaiPoliceBand/');
     expect(u.searchParams.get('width')).toBe('500');
     expect(u.searchParams.get('tabs')).toBe('timeline,events');
+  });
+  it('builds a generic embedded post URL for photos and videos', () => {
+    const href = 'https://www.facebook.com/reel/1613223503936214/';
+    const u = new URL(facebookPostPluginUrl(href, 1200));
+    expect(u.pathname).toBe('/plugins/post.php');
+    expect(u.searchParams.get('href')).toBe(href);
+    expect(u.searchParams.get('show_text')).toBe('true');
+    expect(u.searchParams.get('width')).toBe('500');
   });
 });
