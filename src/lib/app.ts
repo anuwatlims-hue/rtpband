@@ -124,18 +124,19 @@ export function mount(root: HTMLElement, content: SiteContent): App {
     btn.replaceWith(iframe);
   });
 
-  // Featured post + automatic Page Plugin feed, loaded near the viewport.
+  // Featured posts + automatic Page Plugin feed, loaded near the viewport.
   const feed = $<HTMLElement>('#fb-feed');
-  const featured = root.querySelector<HTMLElement>('#fb-featured-frame');
+  const featured = root.querySelectorAll<HTMLElement>('[data-facebook-post-url]');
   const loadFeed = () => {
-    if (featured && content.featuredFacebookPost && !featured.querySelector('iframe')) {
+    featured.forEach((container) => {
+      if (container.querySelector('iframe')) return;
       const postFrame = document.createElement('iframe');
-      postFrame.src = facebookPostPluginUrl(content.featuredFacebookPost.url, featured.clientWidth || 500);
-      postFrame.title = `โพสต์ล่าสุด: ${content.featuredFacebookPost.title}`;
+      postFrame.src = facebookPostPluginUrl(container.dataset.facebookPostUrl!, container.clientWidth || 500);
+      postFrame.title = `โพสต์ Facebook: ${container.dataset.facebookPostTitle}`;
       postFrame.allow = 'encrypted-media; picture-in-picture; fullscreen';
       postFrame.allowFullscreen = true;
-      featured.append(postFrame);
-    }
+      container.append(postFrame);
+    });
     if (!feed.querySelector('iframe')) {
       const pageFrame = document.createElement('iframe');
       pageFrame.src = facebookPagePluginUrl(content.facebookUrl, feed.clientWidth || 500);
@@ -155,7 +156,7 @@ export function mount(root: HTMLElement, content: SiteContent): App {
       },
       { rootMargin: '400px' },
     );
-    observer.observe(feed);
+    observer.observe(featured[0] ?? feed);
   } else {
     loadFeed();
   }
