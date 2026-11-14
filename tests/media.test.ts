@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { facebookPagePluginUrl, facebookVideoPluginUrl, filterByCategory, formatThaiDate, parseVideoUrl, sortByDateDesc } from '../src/lib/media';
+import { facebookPagePluginUrl, filterByCategory, formatThaiDate, parseVideoUrl, sortByDateDesc } from '../src/lib/media';
 
 describe('parseVideoUrl', () => {
   it.each([
@@ -62,14 +62,6 @@ describe('helpers', () => {
     const u = new URL(facebookPagePluginUrl('https://www.facebook.com/ThaiPoliceBand/', 1200));
     expect(u.searchParams.get('href')).toBe('https://www.facebook.com/ThaiPoliceBand/');
     expect(u.searchParams.get('width')).toBe('500');
-    expect(u.searchParams.get('tabs')).toBe('timeline');
-  });
-  it('encodes a direct video URL without autoplay and clamps the player width', () => {
-    const href = 'https://www.facebook.com/watch/?v=1613223503936214&test=1';
-    const u = new URL(facebookVideoPluginUrl(href, 1200));
-    expect(u.searchParams.get('href')).toBe(href);
-    expect(u.searchParams.get('width')).toBe('500');
-    expect(u.searchParams.get('autoplay')).toBe('false');
-    expect(new URL(facebookVideoPluginUrl(href, 120)).searchParams.get('width')).toBe('180');
+    expect(u.searchParams.get('tabs')).toBe('timeline,events');
   });
 });

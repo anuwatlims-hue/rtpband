@@ -164,13 +164,7 @@ iframe.frame { border: 5px solid var(--gold-500); }
 
 /* Facebook feed */
 .fb-feed { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-.fb-feed-help { max-width: 660px; text-align: center; }
-.fb-feed-help .actions { justify-content: center; }
-.fb-feed-frame { width: 100%; max-width: 500px; }
-.fb-feed iframe { display: block; width: 100%; height: 640px; border: 0; outline: 5px solid var(--gold-500); background: #fff; box-shadow: var(--shadow); }
-.fb-video-caption { max-width: 660px; text-align: center; }
-.fb-feed-video .fb-feed-frame { aspect-ratio: 16 / 9; }
-.fb-feed-video iframe { height: 100%; background: #000; }
+.fb-feed iframe { width: 100%; max-width: 500px; height: 640px; border: 5px solid var(--gold-500); background: #fff; box-shadow: var(--shadow); }
 
 /* Footer */
 .site-footer { padding: 2.5rem 0 2rem; font-size: 0.95rem; box-shadow: inset 0 3px 0 var(--gold-500); }

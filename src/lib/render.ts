@@ -145,18 +145,7 @@ export function renderPage(c: SiteContent): string {
   </div></section>
   <section id="feed" class="section container">
     ${heading('ข่าวล่าสุดจาก Facebook')}
-    <div class="fb-feed${c.latestFacebookVideo ? ' fb-feed-video' : ''}" id="fb-feed">
-      ${c.latestFacebookVideo ? `<div class="fb-video-caption"><h3>${esc(c.latestFacebookVideo.title)}</h3><time datetime="${esc(c.latestFacebookVideo.date)}">${formatThaiDate(c.latestFacebookVideo.date)}</time></div>` : ''}
-      <div class="fb-feed-frame" id="fb-feed-frame"></div>
-      <div class="fb-feed-help">
-        <p id="fb-feed-help">${c.latestFacebookVideo ? 'หากเล่นคลิปไม่ได้ สามารถเปิดชมบน Facebook ได้โดยตรง' : 'หากไม่เห็นโพสต์หรือเห็นเฉพาะชื่อเพจ Facebook อาจจำกัดการแสดงข่าวบนเว็บไซต์นี้ สามารถเปิดอ่านข่าวล่าสุดบนเพจได้โดยตรง'}</p>
-        <div class="actions">
-          ${c.latestFacebookVideo ? `<a class="btn" href="${esc(c.latestFacebookVideo.url)}" target="_blank" rel="noopener">ชมคลิปบน Facebook</a>` : ''}
-          <a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">อ่านข่าวล่าสุดบน Facebook</a>
-          <button class="btn" type="button" id="fb-feed-retry">${c.latestFacebookVideo ? 'โหลดคลิปอีกครั้ง' : 'โหลดฟีดอีกครั้ง'}</button>
-        </div>
-      </div>
-    </div>
+    <div class="fb-feed" id="fb-feed"><a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">เปิดเพจ Facebook</a></div>
   </section>
 </main>
 <footer class="site-footer"><div class="container">

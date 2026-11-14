@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { content } from '../src/data/content';
 import { mount, type App } from '../src/lib/app';
 import { asset, esc, renderVideos } from '../src/lib/render';
@@ -17,7 +17,6 @@ afterEach(() => {
   app?.destroy();
   app = undefined;
   root?.remove();
-  vi.unstubAllGlobals();
 });
 
 describe('content', () => {
@@ -32,7 +31,7 @@ describe('content', () => {
 });
 
 describe('page', () => {
-  beforeEach(() => setup({ ...content, latestFacebookVideo: undefined }));
+  beforeEach(() => setup());
 
   it('renders every section and item with lazy images', () => {
     for (const id of ['works', 'activities', 'gallery', 'videos', 'feed']) expect(q(`#${id}`)).toBeTruthy();
@@ -102,63 +101,6 @@ describe('page', () => {
 
   it('loads the Facebook page plugin when IntersectionObserver is unavailable', () => {
     expect(q('#fb-feed iframe').getAttribute('src')).toContain('facebook.com/plugins/page.php');
-  });
-
-  it('keeps a direct news link visible and replaces the frame on retry', () => {
-    const link = q<HTMLAnchorElement>('#fb-feed-help + .actions a');
-    expect(link.href).toBe(content.facebookUrl);
-    const frame = q('#fb-feed iframe');
-    frame.dispatchEvent(new Event('load'));
-    expect(q('#fb-feed-help').textContent).toContain('หากไม่เห็นโพสต์');
-    q<HTMLButtonElement>('#fb-feed-retry').click();
-    expect(root.querySelectorAll('#fb-feed iframe')).toHaveLength(1);
-    expect(q('#fb-feed iframe')).not.toBe(frame);
-  });
-});
-
-it('defers the feed until visible, avoids duplicates, and disconnects on destroy', () => {
-  let notify: IntersectionObserverCallback;
-  const observe = vi.fn();
-  const disconnect = vi.fn();
-  vi.stubGlobal('IntersectionObserver', class {
-    constructor(callback: IntersectionObserverCallback) { notify = callback; }
-    observe = observe;
-    disconnect = disconnect;
-  });
-  setup({ ...content, latestFacebookVideo: undefined });
-  expect(observe).toHaveBeenCalledWith(q('#fb-feed'));
-  expect(root.querySelector('#fb-feed iframe')).toBeNull();
-  const intersect = () => notify([{ isIntersecting: true } as IntersectionObserverEntry], {} as IntersectionObserver);
-  intersect();
-  intersect();
-  expect(root.querySelectorAll('#fb-feed iframe')).toHaveLength(1);
-  expect(q('#fb-feed iframe').getAttribute('loading')).not.toBe('lazy');
-  app!.destroy();
-  app = undefined;
-  expect(disconnect).toHaveBeenCalled();
-});
-
-describe('selected Facebook news video', () => {
-  it('embeds the supplied clip directly without autoplay and keeps its source link', () => {
-    setup();
-    const video = content.latestFacebookVideo!;
-    const frame = q<HTMLIFrameElement>('#fb-feed iframe');
-    const src = new URL(frame.src);
-    expect(src.pathname).toBe('/plugins/video.php');
-    expect(src.searchParams.get('href')).toBe('https://www.facebook.com/reel/1613223503936214/');
-    expect(src.searchParams.get('autoplay')).toBe('false');
-    expect(frame.title).toBe(video.title);
-    expect(frame.allowFullscreen).toBe(true);
-    expect(q('#fb-feed h3').textContent).toBe(video.title);
-    expect(q('#fb-feed time').getAttribute('datetime')).toBe(video.date);
-    expect(q<HTMLAnchorElement>(`#fb-feed a[href="${video.url}"]`).textContent).toBe('ชมคลิปบน Facebook');
-    expect(root.querySelector('#fb-feed iframe[src*="/plugins/page.php"]')).toBeNull();
-    frame.dispatchEvent(new Event('error'));
-    expect(q('#fb-feed-help').textContent).toContain('หากเล่นคลิปไม่ได้');
-    q<HTMLButtonElement>('#fb-feed-retry').click();
-    expect(root.querySelectorAll('#fb-feed iframe')).toHaveLength(1);
-    expect(q<HTMLIFrameElement>('#fb-feed iframe').src).toBe(frame.src);
-    expect(q('#fb-feed iframe')).not.toBe(frame);
   });
 });
 

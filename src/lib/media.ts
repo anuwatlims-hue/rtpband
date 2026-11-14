@@ -73,7 +73,7 @@ export function formatThaiDate(iso: string): string {
 export function facebookPagePluginUrl(pageUrl: string, width: number): string {
   const params = new URLSearchParams({
     href: pageUrl,
-    tabs: 'timeline',
+    tabs: 'timeline,events',
     width: String(Math.round(Math.min(500, Math.max(180, width)))),
     height: '640',
     small_header: 'false',
@@ -82,15 +82,4 @@ export function facebookPagePluginUrl(pageUrl: string, width: number): string {
     show_facepile: 'false',
   });
   return `https://www.facebook.com/plugins/page.php?${params}`;
-}
-
-/** A direct public video embed, without autoplay. */
-export function facebookVideoPluginUrl(videoUrl: string, width: number): string {
-  const params = new URLSearchParams({
-    href: videoUrl,
-    width: String(Math.round(Math.min(500, Math.max(180, width)))),
-    show_text: 'false',
-    autoplay: 'false',
-  });
-  return `https://www.facebook.com/plugins/video.php?${params}`;
 }
