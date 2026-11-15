@@ -34,19 +34,19 @@ export const content: SiteContent = {
       id: 'bagpipe',
       title: 'วงปี่สก็อต',
       description: 'เอกลักษณ์แห่งพิธีการ เสียงปี่และกลองที่สร้างความประทับใจในทุกงานสำคัญ',
-      image: '/media/bagpipe-photo.webp',
+      image: '/media/bagpipe-upload.webp',
     },
     {
       id: 'jazz',
       title: 'วงหัสดนตรี',
       description: 'วงดนตรีสากลสำหรับงานเลี้ยงรับรองและการแสดงเพื่อความบันเทิง',
-      image: '/media/jazz.svg',
+      image: '/media/jazz-upload.webp',
     },
     {
       id: 'chamber',
       title: 'เชมเบอร์มิวสิค',
       description: 'วงดนตรีขนาดเล็กสำหรับงานพิธีที่ต้องการความประณีตและเป็นทางการ',
-      image: '/media/chamber.svg',
+      image: '/media/chamber-upload.webp',
     },
     {
       id: 'thai',

@@ -53,7 +53,7 @@ function heading(text: string, light = false): string {
 export function renderWorks(works: Work[]): string {
   return works
     .map(
-      (w) => `<article class="card work">
+      (w) => `<article class="card work" data-work="${esc(w.id)}">
   <div class="gold-frame">${img(w.image, w.title)}${corners}</div>
   <div class="card-body"><h3>${esc(w.title)}</h3><p>${esc(w.description)}</p></div>
 </article>`,

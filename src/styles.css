@@ -106,6 +106,12 @@ strong { font-weight: 500; }
 .gold-frame { position: relative; display: block; padding: 5px; background: var(--gold-grad); box-shadow: var(--shadow); }
 .gold-frame::after { content: ''; position: absolute; inset: 9px; border: 1px solid rgb(248 236 196 / 0.75); pointer-events: none; }
 .gold-frame > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; height: auto; background: var(--maroon-800); }
+.work[data-work="jazz"] .gold-frame > img { object-position: center bottom; }
+.work[data-work="bagpipe"] .gold-frame > img,
+.work[data-work="chamber"] .gold-frame > img { object-fit: contain; background: var(--cream); }
+.work[data-work="jazz"] .gold-frame > img,
+.work[data-work="bagpipe"] .gold-frame > img,
+.work[data-work="chamber"] .gold-frame > img { filter: sepia(0.10) saturate(0.92) contrast(1.03); }
 .c { position: absolute; width: 34px; height: 34px; background: url('./assets/corner.svg') center / contain no-repeat; pointer-events: none; z-index: 1; }
 .c.tl { top: -3px; left: -3px; }
 .c.tr { top: -3px; right: -3px; transform: scaleX(-1); }
