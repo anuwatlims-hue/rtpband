@@ -20,7 +20,7 @@ export const content: SiteContent = {
   ],
   facebookUrl: 'https://www.facebook.com/ThaiPoliceBand/',
   featuredFacebookPosts: [],
-  website: 'http://www.thaipoliceband.org',
+  website: 'https://web.royalthaipoliceband.org/',
   address: '91 หมู่ 4 ถนนแจ้งวัฒนะ ตำบลคลองเกลือ อำเภอปากเกร็ด จังหวัดนนทบุรี 11120',
   phone: '0-2205-2522',
   works: [
