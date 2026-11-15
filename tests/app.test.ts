@@ -105,9 +105,9 @@ describe('page', () => {
     expect(q('#fb-feed a')).toBeTruthy();
   });
 
-  it('shows selected photo and video posts above the automatic Facebook feed', () => {
+  it('does not show pinned posts above the automatic Facebook feed', () => {
     const posts = content.featuredFacebookPosts!;
-    expect(posts).toHaveLength(2);
+    expect(posts).toHaveLength(0);
     expect(root.querySelectorAll('#feed [data-facebook-post] iframe')).toHaveLength(posts.length);
     for (const post of posts) {
       const container = q<HTMLElement>(`[data-facebook-post="${post.id}"]`);
