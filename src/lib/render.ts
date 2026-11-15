@@ -20,10 +20,17 @@ function renderFeaturedFacebookPosts(posts: FeaturedFacebookPost[] | undefined):
       <h3>${esc(post.title)}</h3>
       <time datetime="${esc(post.date)}">${formatThaiDate(post.date)}</time>
       <div class="fb-featured-frame" data-facebook-post="${esc(post.id)}" data-facebook-post-url="${esc(post.url)}" data-facebook-post-title="${esc(post.title)}" style="height:${height}px"></div>
+      <a class="fb-featured-mobile" href="${esc(post.url)}" target="_blank" rel="noopener">
+        <span class="fb-featured-mobile-media">
+          <img src="${asset(post.mobileImage)}" alt="${esc(post.mobileAlt)}" loading="lazy">
+          ${post.kind === 'video' ? '<span class="fb-featured-play" aria-hidden="true">▶</span>' : ''}
+        </span>
+        <span class="fb-featured-mobile-action">${post.kind === 'video' ? 'ชมวิดีโอ' : 'ดูภาพและรายละเอียด'}บน Facebook</span>
+      </a>
       <a class="btn" href="${esc(post.url)}" target="_blank" rel="noopener">เปิดโพสต์นี้บน Facebook</a>
     </article>`;
   }).join('')}
-  <p class="fb-feed-label">ฟีดอัตโนมัติจากเพจ Facebook</p>`;
+  <p class="fb-feed-label"><span class="fb-label-desktop">ฟีดอัตโนมัติจากเพจ Facebook</span><span class="fb-label-mobile">ข่าวทั้งหมดจากเพจ Facebook</span></p>`;
 }
 
 function img(src: string, alt: string): string {

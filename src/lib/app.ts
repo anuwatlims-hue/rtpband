@@ -127,8 +127,9 @@ export function mount(root: HTMLElement, content: SiteContent): App {
   // Featured posts + automatic Page Plugin feed, loaded near the viewport.
   const feed = $<HTMLElement>('#fb-feed');
   const featured = root.querySelectorAll<HTMLElement>('[data-facebook-post-url]');
+  const isNarrowMobile = typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 700px)').matches;
   const loadFeed = () => {
-    featured.forEach((container) => {
+    if (!isNarrowMobile) featured.forEach((container) => {
       if (container.querySelector('iframe')) return;
       const postFrame = document.createElement('iframe');
       postFrame.src = facebookPostPluginUrl(container.dataset.facebookPostUrl!, container.clientWidth || 500);
@@ -137,7 +138,7 @@ export function mount(root: HTMLElement, content: SiteContent): App {
       postFrame.allowFullscreen = true;
       container.append(postFrame);
     });
-    if (!feed.querySelector('iframe')) {
+    if (!isNarrowMobile && !feed.querySelector('iframe')) {
       const pageFrame = document.createElement('iframe');
       pageFrame.src = facebookPagePluginUrl(content.facebookUrl, feed.clientWidth || 500);
       pageFrame.title = `Facebook: ${content.name}`;

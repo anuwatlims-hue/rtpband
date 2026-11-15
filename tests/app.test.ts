@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { content } from '../src/data/content';
 import { mount, type App } from '../src/lib/app';
 import { asset, esc, renderVideos } from '../src/lib/render';
@@ -17,6 +17,7 @@ afterEach(() => {
   app?.destroy();
   app = undefined;
   root?.remove();
+  vi.unstubAllGlobals();
 });
 
 describe('content', () => {
@@ -117,8 +118,22 @@ describe('page', () => {
       expect(frame.allowFullscreen).toBe(true);
       expect(container.style.height).toBe(`${post.embedHeight}px`);
       expect(q<HTMLAnchorElement>(`#feed a[href="${post.url}"]`).rel).toContain('noopener');
+      const mobileCard = q<HTMLAnchorElement>(`.fb-featured-mobile[href="${post.url}"]`);
+      expect(mobileCard.querySelector('img')!.getAttribute('src')).toBe(post.mobileImage);
     }
     expect(q('#fb-feed iframe').getAttribute('src')).toContain('/plugins/page.php');
+  });
+});
+
+it('uses same-origin news cards without Facebook iframes on narrow mobile screens', () => {
+  vi.stubGlobal('matchMedia', vi.fn().mockReturnValue({ matches: true }));
+  setup();
+  expect(root.querySelectorAll('#feed iframe')).toHaveLength(0);
+  const cards = root.querySelectorAll<HTMLAnchorElement>('.fb-featured-mobile');
+  expect(cards).toHaveLength(content.featuredFacebookPosts!.length);
+  cards.forEach((card) => {
+    expect(card.rel).toContain('noopener');
+    expect(card.querySelector('img')!.getAttribute('loading')).toBe('lazy');
   });
 });
 
