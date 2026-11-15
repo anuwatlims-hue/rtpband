@@ -46,6 +46,9 @@ export interface FeaturedFacebookPost {
   date: string;
   /** iframe height in pixels; Facebook does not expose cross-origin content height. */
   embedHeight?: number;
+  mobileImage: string;
+  mobileAlt: string;
+  kind: 'photo' | 'video';
 }
 
 export interface SiteContent {

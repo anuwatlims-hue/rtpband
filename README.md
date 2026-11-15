@@ -22,4 +22,6 @@ npm run preview    # ดูผล build
 
 ส่วน "ข่าวล่าสุดจาก Facebook" ใช้แบบผสม: `featuredFacebookPosts` ใน `src/data/content.ts` ฝังโพสต์สาธารณะที่เลือกไว้ด้านบนผ่าน Facebook Embedded Post ซึ่งรองรับข้อความ ภาพ และวิดีโอ ส่วนด้านล่างยังคงดึงฟีดสดผ่าน Facebook Page Plugin แบบเดิม หากต้องการเพิ่มหรือเปลี่ยนโพสต์ ให้แก้ `id`, `url`, `title`, `date` และ `embedHeight` ของแต่ละรายการ ฟีดด้านล่างอัปเดตตามเพจอัตโนมัติเมื่อ Facebook อนุญาตให้แสดง
 
+บนหน้าจอมือถือ เว็บไซต์ใช้ `mobileImage`, `mobileAlt` และ `kind` สร้างการ์ดข่าวจากไฟล์ใน `public/media/` แล้วเปิดโพสต์ใน Facebook เมื่อแตะ เพื่อหลีกเลี่ยง `ERR_BLOCKED_BY_RESPONSE` จากเบราว์เซอร์มือถือ ส่วน Facebook iframe และ Page Plugin จะโหลดเฉพาะหน้าจอที่กว้างกว่า 700px
+
 > Facebook ไม่อนุญาตให้ดึงข้อมูลอัตโนมัติ ภาพใน `public/media/` ตอนนี้เป็นภาพประกอบชั่วคราว ควรแทนที่ด้วยภาพจริงจากเพจ (ที่หน่วยงานมีสิทธิ์ใช้)
