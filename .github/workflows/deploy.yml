@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
 
 permissions:
   contents: read
@@ -26,6 +28,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - name: Refresh Facebook feed
+        if: github.event_name != 'pull_request'
+        run: node scripts/facebook-feed.mjs
+        env:
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
       - run: npm run build
       - if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3

@@ -1,5 +1,5 @@
 import type { Category, SiteContent } from '../types';
-import { facebookPagePluginUrl, facebookPostPluginUrl, filterByCategory } from './media';
+import { facebookPostPluginUrl, filterByCategory } from './media';
 import { asset, renderActivities, renderGallery, renderPage } from './render';
 
 export interface App {
@@ -138,13 +138,6 @@ export function mount(root: HTMLElement, content: SiteContent): App {
       postFrame.allowFullscreen = true;
       container.append(postFrame);
     });
-    if (!isNarrowMobile && !feed.querySelector('iframe')) {
-      const pageFrame = document.createElement('iframe');
-      pageFrame.src = facebookPagePluginUrl(content.facebookUrl, feed.clientWidth || 500);
-      pageFrame.title = `Facebook: ${content.name}`;
-      pageFrame.allow = 'encrypted-media; picture-in-picture; fullscreen';
-      feed.prepend(pageFrame);
-    }
   };
   let observer: IntersectionObserver | undefined;
   if ('IntersectionObserver' in window) {

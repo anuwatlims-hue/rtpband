@@ -1,5 +1,6 @@
 import type { Activity, Category, FeaturedFacebookPost, Photo, SiteContent, Video, Work } from '../types';
 import { categoryLabels, formatThaiDate, parseVideoUrl, sortByDateDesc } from './media';
+import facebookFeed from '../data/facebook-feed.json';
 
 export function esc(value: string): string {
   return value.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
@@ -35,6 +36,14 @@ function renderFeaturedFacebookPosts(posts: FeaturedFacebookPost[] | undefined):
 
 function img(src: string, alt: string): string {
   return `<img src="${esc(asset(src))}" alt="${esc(alt)}" loading="lazy" decoding="async" width="800" height="600">`;
+}
+
+function renderAutomaticFeed(): string {
+  if (!facebookFeed.posts.length) return '<p class="fb-api-status">ข่าวอัตโนมัติกำลังเตรียมข้อมูล สามารถอ่านข่าวจากโพสต์ด้านบนหรือเปิดเพจได้</p>';
+  return `<div class="fb-api-grid">${facebookFeed.posts.map((post: { id: string; url: string; message: string; image: string | null; date: string }) => `<article class="fb-api-card">
+    ${post.image ? `<a href="${esc(post.url)}" target="_blank" rel="noopener"><img src="${esc(post.image)}" alt="ภาพประกอบข่าวจากฝ่ายดนตรี" loading="lazy" referrerpolicy="no-referrer"></a>` : ''}
+    <div><time datetime="${esc(post.date)}">${formatThaiDate(post.date)}</time><p>${esc(post.message)}</p><a class="btn" href="${esc(post.url)}" target="_blank" rel="noopener">อ่านโพสต์บน Facebook</a></div>
+  </article>`).join('')}</div>`;
 }
 
 function heading(text: string, light = false): string {
@@ -167,7 +176,7 @@ export function renderPage(c: SiteContent): string {
   <section id="feed" class="section container">
     ${heading('ข่าวล่าสุดจาก Facebook')}
     ${renderFeaturedFacebookPosts(c.featuredFacebookPosts)}
-    <div class="fb-feed" id="fb-feed"><a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">เปิดเพจ Facebook</a></div>
+    <div class="fb-feed" id="fb-feed">${renderAutomaticFeed()}<a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">เปิดเพจ Facebook</a></div>
   </section>
 </main>
 <footer class="site-footer"><div class="container">

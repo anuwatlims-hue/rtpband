@@ -100,8 +100,9 @@ describe('page', () => {
     expect(document.body.classList.contains('no-scroll')).toBe(false);
   });
 
-  it('loads the Facebook page plugin when IntersectionObserver is unavailable', () => {
-    expect(q('#fb-feed iframe').getAttribute('src')).toContain('facebook.com/plugins/page.php');
+  it('uses website cards instead of the unreliable Facebook page plugin', () => {
+    expect(root.querySelector('#fb-feed iframe')).toBeNull();
+    expect(q('#fb-feed a')).toBeTruthy();
   });
 
   it('shows selected photo and video posts above the automatic Facebook feed', () => {
@@ -121,7 +122,7 @@ describe('page', () => {
       const mobileCard = q<HTMLAnchorElement>(`.fb-featured-mobile[href="${post.url}"]`);
       expect(mobileCard.querySelector('img')!.getAttribute('src')).toBe(post.mobileImage);
     }
-    expect(q('#fb-feed iframe').getAttribute('src')).toContain('/plugins/page.php');
+    expect(root.querySelector('#fb-feed iframe')).toBeNull();
   });
 });
 
