@@ -169,6 +169,17 @@ iframe.frame { border: 5px solid var(--gold-500); }
 .empty .c { position: absolute; z-index: 2; }
 
 /* Facebook feed */
+.latest-fb-video { max-width: 640px; margin: 0 auto 2rem; text-align: center; }
+.latest-fb-video time { display: block; margin-bottom: 1rem; }
+.latest-fb-player { aspect-ratio: 16 / 9; margin-bottom: 1rem; }
+.latest-fb-player iframe { display: block; width: 100%; height: 100%; border: 0; background: #000; }
+.latest-fb-mobile { display: none; }
+@media (max-width: 700px) {
+  .latest-fb-player { display: none; }
+  .latest-fb-mobile { display: block; margin-bottom: 1rem; color: var(--maroon-900); text-decoration: none; }
+  .latest-fb-mobile img { width: 100%; height: auto; object-fit: contain; }
+  .latest-fb-mobile span { display: block; padding: 1rem; background: var(--cream); font-weight: 500; }
+}
 .fb-api-grid { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1.5rem; }
 .fb-api-card { overflow: hidden; border: 1px solid var(--gold-500); border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); }
 .fb-api-card img { width: 100%; height: 220px; object-fit: cover; }

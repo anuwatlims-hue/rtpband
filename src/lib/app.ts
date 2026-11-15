@@ -128,6 +128,17 @@ export function mount(root: HTMLElement, content: SiteContent): App {
   const feed = $<HTMLElement>('#fb-feed');
   const featured = root.querySelectorAll<HTMLElement>('[data-facebook-post-url]');
   const isNarrowMobile = typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 700px)').matches;
+  const latestVideo = root.querySelector<HTMLElement>('[data-latest-video]');
+  if (latestVideo && !isNarrowMobile) {
+    const player = document.createElement('iframe');
+    const params = new URLSearchParams({ href: latestVideo.dataset.latestVideo!, show_text: 'false', autoplay: 'false', width: '500' });
+    player.src = `https://www.facebook.com/plugins/video.php?${params}`;
+    player.title = latestVideo.dataset.videoTitle || 'วิดีโอล่าสุดจาก Facebook';
+    player.loading = 'lazy';
+    player.allow = 'encrypted-media; picture-in-picture; fullscreen';
+    player.allowFullscreen = true;
+    latestVideo.append(player);
+  }
   const loadFeed = () => {
     if (!isNarrowMobile) featured.forEach((container) => {
       if (container.querySelector('iframe')) return;

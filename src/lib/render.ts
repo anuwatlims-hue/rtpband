@@ -46,6 +46,20 @@ function renderAutomaticFeed(): string {
   </article>`).join('')}</div>`;
 }
 
+function renderLatestFacebookVideo(): string {
+  const video = facebookFeed.latestVideo as { title: string; date: string; url: string; poster: string | null } | null;
+  if (!video) return '';
+  return `<article class="latest-fb-video">
+    <h3>${esc(video.title)}</h3><time datetime="${esc(video.date)}">${formatThaiDate(video.date)}</time>
+    <div class="latest-fb-player gold-frame" data-latest-video="${esc(video.url)}" data-video-title="${esc(video.title)}"></div>
+    <a class="latest-fb-mobile gold-frame" href="${esc(video.url)}" target="_blank" rel="noopener">
+      ${video.poster ? `<img src="${esc(video.poster)}" alt="ภาพปกวิดีโอล่าสุด" loading="lazy" referrerpolicy="no-referrer">` : ''}
+      <span>▶ ชมวิดีโอล่าสุดบน Facebook</span>
+    </a>
+    <a class="btn" href="${esc(video.url)}" target="_blank" rel="noopener">เปิดคลิปนี้บน Facebook</a>
+  </article>`;
+}
+
 function heading(text: string, light = false): string {
   return `<div class="heading${light ? ' light' : ''}"><h2 class="ribbon"><span class="clef" aria-hidden="true">♪</span>${esc(text)}</h2></div>`;
 }
@@ -176,6 +190,7 @@ export function renderPage(c: SiteContent): string {
   </section>
   <section id="videos" class="section alt"><div class="container">
     ${heading('วิดีโอ', true)}
+    ${renderLatestFacebookVideo()}
     <div id="video-list">${renderVideos(c.videos, c.facebookUrl)}</div>
   </div></section>
 </main>
