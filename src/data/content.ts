@@ -124,7 +124,6 @@ export const content: SiteContent = {
     { id: 'p9', src: '/media/ceremony-photo.webp', alt: 'โปสเตอร์ แด่…ผู้พิทักษ์สันติราษฎร์ 13 บทเพลงตำรวจ', caption: 'แด่…ผู้พิทักษ์สันติราษฎร์ 13 บทเพลงตำรวจ', category: 'community' },
     { id: 'p6', src: '/media/thai-photo.webp', alt: 'วงดนตรีไทยดุริยางค์ตำรวจในพิธีถวายผ้าพระกฐิน', caption: 'วงดนตรีไทย พิธีถวายผ้าพระกฐินพระราชทาน วัดตรีทศเทพ', category: 'ceremony' },
     { id: 'p7', src: '/media/school-photo.webp', alt: 'ครูและนักเรียนโรงเรียนการดนตรี ดุริยางค์ตำรวจ', caption: 'ครูและนักเรียนโรงเรียนการดนตรี', category: 'education' },
-    { id: 'p8', src: '/media/chamber.svg', alt: 'เชมเบอร์มิวสิค', caption: 'วงเชมเบอร์มิวสิคในงานเลี้ยงรับรอง', category: 'ceremony' },
   ],
   // Add Facebook or YouTube video URLs here, e.g.
   // { id: 'v1', title: '...', url: 'https://www.facebook.com/ThaiPoliceBand/videos/123', poster: '/media/concert.svg' }
