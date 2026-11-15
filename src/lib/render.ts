@@ -140,7 +140,7 @@ export function renderPage(c: SiteContent): string {
     <a class="brand" href="#top"><span class="logo" aria-hidden="true">♫</span><span>${esc(c.name)}<small>${esc(c.nameEn)}</small></span></a>
     <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu" aria-label="เมนู"><span></span></button>
     <nav id="menu" class="menu">
-      <a href="#works">ผลงาน</a><a href="#activities">กิจกรรม</a><a href="#gallery">ภาพนิ่ง</a><a href="#videos">วิดีโอ</a><a href="#feed">ข่าวล่าสุด</a>
+      <a href="#works">ผลงาน</a><a href="#activities">กิจกรรม</a><a href="#gallery">ภาพนิ่ง</a><a href="#feed">ข่าวล่าสุด</a><a href="#videos">วิดีโอ</a>
     </nav>
   </div>
 </header>
@@ -169,15 +169,15 @@ export function renderPage(c: SiteContent): string {
     <div class="filters" data-target="gallery" role="group" aria-label="กรองภาพ">${renderFilters(photoCategories, 'all')}</div>
     <ul class="gallery" id="gallery-list">${renderGallery(c.photos)}</ul>
   </section>
-  <section id="videos" class="section alt"><div class="container">
-    ${heading('วิดีโอ', true)}
-    <div id="video-list">${renderVideos(c.videos, c.facebookUrl)}</div>
-  </div></section>
   <section id="feed" class="section container">
     ${heading('ข่าวล่าสุดจาก Facebook')}
     ${renderFeaturedFacebookPosts(c.featuredFacebookPosts)}
     <div class="fb-feed" id="fb-feed">${renderAutomaticFeed()}<a class="btn" href="${esc(c.facebookUrl)}" target="_blank" rel="noopener">เปิดเพจ Facebook</a></div>
   </section>
+  <section id="videos" class="section alt"><div class="container">
+    ${heading('วิดีโอ', true)}
+    <div id="video-list">${renderVideos(c.videos, c.facebookUrl)}</div>
+  </div></section>
 </main>
 <footer class="site-footer"><div class="container">
   <div class="footer-mark">

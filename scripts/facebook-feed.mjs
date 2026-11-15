@@ -4,7 +4,7 @@ const token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 if (!token) throw new Error('FACEBOOK_PAGE_ACCESS_TOKEN is missing in GitHub Secrets');
 const url = new URL('https://graph.facebook.com/v27.0/93857536197/posts');
 url.searchParams.set('fields', 'id,message,created_time,permalink_url,full_picture');
-url.searchParams.set('limit', '8');
+url.searchParams.set('limit', '9');
 let response;
 try {
   response = await fetch(url, { headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(30000) });
