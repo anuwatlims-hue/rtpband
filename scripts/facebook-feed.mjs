@@ -17,7 +17,9 @@ if (!response.ok || result.error) {
   throw new Error(`Facebook API rejected access (code ${Number(result.error?.code) || response.status}, subcode ${Number(result.error?.error_subcode) || 0}). Check Page Token permissions and expiration.`);
 }
 if (!Array.isArray(result.data) || !result.data.length) throw new Error('Facebook returned no posts; keeping the currently deployed website');
-const posts = result.data.filter(p => typeof p.permalink_url === 'string' && /^https:\/\/(www\.)?facebook\.com\//.test(p.permalink_url)).slice(0, 9).map(p => ({
+const posts = result.data.filter(p => typeof p.permalink_url === 'string' && /^https:\/\/(www\.)?facebook\.com\//.test(p.permalink_url) && Number.isFinite(Date.parse(p.created_time)))
+  .sort((a, b) => Date.parse(b.created_time) - Date.parse(a.created_time))
+  .slice(0, 9).map(p => ({
   id: String(p.id), message: String(p.message || 'ข่าวจากฝ่ายดนตรี'), date: String(p.created_time).slice(0, 10),
   url: p.permalink_url, image: typeof p.full_picture === 'string' && p.full_picture.startsWith('https://') ? p.full_picture : null,
 }));
