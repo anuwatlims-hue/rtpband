@@ -33,9 +33,15 @@ if (videos.length < 3) {
   const visit = node => {
     if (!node || typeof node !== 'object') return;
     if (node.videoRenderer?.videoId) items.push(node.videoRenderer);
+    if (node.lockupViewModel?.contentId && node.lockupViewModel.contentType === 'LOCKUP_CONTENT_TYPE_VIDEO') {
+      const v = node.lockupViewModel;
+      items.push({ videoId:v.contentId, title:{simpleText:v.metadata?.lockupMetadataViewModel?.title?.content} });
+    }
     for (const v of Object.values(node)) if (v && typeof v === 'object') Array.isArray(v) ? v.forEach(visit) : visit(v);
   };
   visit(tab?.content);
+  console.log(`YouTube videos tab: ${items.length} video entries`);
+  if (!items.length) console.log('YouTube public tab structure:', JSON.stringify(tab?.content || data.contents).slice(0,9000));
   videos = [...new Map(items.map(v=>[v.videoId,v])).values()].slice(0,3).map(v=>({
     id:v.videoId,title:v.title?.runs?.map(r=>r.text).join('') || v.title?.simpleText || 'วิดีโอจากฝ่ายดนตรี',
     url:`https://www.youtube.com/watch?v=${v.videoId}`,poster:`https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg`,
