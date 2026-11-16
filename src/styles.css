@@ -169,6 +169,9 @@ iframe.frame { border: 5px solid var(--gold-500); }
 .empty .c { position: absolute; z-index: 2; }
 
 /* Facebook feed */
+.youtube-intro { text-align: center; margin: 0 0 2rem; color: var(--gold-100); }
+#videos .video h3 { margin-top: 1rem; font-size: 1.1rem; line-height: 1.5; }
+#videos .video time { color: var(--gold-300); }
 .latest-fb-video { max-width: 640px; margin: 0 auto 2rem; text-align: center; }
 .latest-fb-video time { display: block; margin-bottom: 1rem; }
 .latest-fb-player { aspect-ratio: 16 / 9; margin-bottom: 1rem; }

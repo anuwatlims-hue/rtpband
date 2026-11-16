@@ -154,6 +154,7 @@ describe('videos', () => {
 
   it('defers embeds until clicked', () => {
     setup(withVideos);
+    q('#video-list').innerHTML = renderVideos(withVideos.videos, content.facebookUrl);
     expect(root.querySelectorAll('#video-list iframe')).toHaveLength(0);
     expect(q('#video-list video').getAttribute('preload')).toBe('none');
     const facades = root.querySelectorAll<HTMLButtonElement>('button[data-embed]');

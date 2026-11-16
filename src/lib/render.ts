@@ -1,6 +1,7 @@
 import type { Activity, Category, FeaturedFacebookPost, Photo, SiteContent, Video, Work } from '../types';
 import { categoryLabels, formatThaiDate, parseVideoUrl, sortByDateDesc } from './media';
 import facebookFeed from '../data/facebook-feed.json';
+import youtubeFeed from '../data/youtube-feed.json';
 
 export function esc(value: string): string {
   return value.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
@@ -46,18 +47,10 @@ function renderAutomaticFeed(): string {
   </article>`).join('')}</div>`;
 }
 
-function renderLatestFacebookVideo(): string {
-  const video = facebookFeed.latestVideo as { title: string; date: string; url: string; poster: string | null } | null;
-  if (!video) return '';
-  return `<article class="latest-fb-video">
-    <h3>${esc(video.title)}</h3><time datetime="${esc(video.date)}">${formatThaiDate(video.date)}</time>
-    <div class="latest-fb-player gold-frame" data-latest-video="${esc(video.url)}" data-video-title="${esc(video.title)}"></div>
-    <a class="latest-fb-mobile gold-frame" href="${esc(video.url)}" target="_blank" rel="noopener">
-      ${video.poster ? `<img src="${esc(video.poster)}" alt="ภาพปกวิดีโอล่าสุด" loading="lazy" referrerpolicy="no-referrer">` : ''}
-      <span>▶ ชมวิดีโอล่าสุดบน Facebook</span>
-    </a>
-    <a class="btn" href="${esc(video.url)}" target="_blank" rel="noopener">เปิดคลิปนี้บน Facebook</a>
-  </article>`;
+function renderLatestYouTubeVideos(): string {
+  const videos = youtubeFeed.videos as Video[];
+  return `${videos.length ? renderVideos(videos, '') : ''}
+    <div class="actions"><a class="btn" href="${esc(youtubeFeed.channelUrl)}" target="_blank" rel="noopener">ดูวิดีโอทั้งหมดบน YouTube</a></div>`;
 }
 
 function heading(text: string, light = false): string {
@@ -190,8 +183,8 @@ export function renderPage(c: SiteContent): string {
   </section>
   <section id="videos" class="section alt"><div class="container">
     ${heading('วิดีโอ', true)}
-    ${renderLatestFacebookVideo()}
-    <div id="video-list">${renderVideos(c.videos, c.facebookUrl)}</div>
+    <p class="youtube-intro">3 วิดีโอล่าสุดจากช่อง YouTube ฝ่ายดนตรี</p>
+    <div id="video-list">${renderLatestYouTubeVideos()}</div>
   </div></section>
 </main>
 <footer class="site-footer"><div class="container">
