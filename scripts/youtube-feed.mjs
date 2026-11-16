@@ -48,5 +48,11 @@ if (videos.length < 3) {
   }));
 }
 if (videos.length !== 3) throw new Error('YouTube did not return three public videos');
+for (const video of videos) {
+  const image = await fetch(video.poster, { signal: AbortSignal.timeout(30000) });
+  if (!image.ok || !image.headers.get('content-type')?.startsWith('image/')) throw new Error('Cannot download YouTube thumbnail');
+  await writeFile(new URL(`../public/media/youtube-${video.id}.jpg`, import.meta.url), Buffer.from(await image.arrayBuffer()));
+  video.poster = `/media/youtube-${video.id}.jpg`;
+}
 await writeFile(new URL('../src/data/youtube-feed.json',import.meta.url),JSON.stringify({channelUrl,channelId,updatedAt:new Date().toISOString(),videos},null,2));
 console.log(`YouTube refreshed: ${videos.length} latest videos from ${channelId}`);
